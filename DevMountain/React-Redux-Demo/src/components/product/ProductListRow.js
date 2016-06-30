@@ -4,7 +4,11 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
+
 const ProductListRow = ({product, onDelete}) => {
+
+  
+  
   return(
     <div className="product-box-admin">
       <div className="product-img-holder-admin">
@@ -18,7 +22,7 @@ const ProductListRow = ({product, onDelete}) => {
       </div>
       <div className="product-admin-options">
         <Link to={'/product/' + product.id}><div className="product-admin-option-single"><span className="glyphicon glyphicon-edit"></span></div></Link>
-        <div onClick={onDelete} ><span className="glyphicon glyphicon-trash"></span></div>
+        <div onClick={onDelete(product.id)} ><span className="glyphicon glyphicon-trash"></span></div>
       </div>
     </div>
   );

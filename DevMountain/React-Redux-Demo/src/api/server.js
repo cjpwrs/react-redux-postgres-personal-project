@@ -13,13 +13,8 @@ app.use(cors());
 
 var port = 3001;
 
-var newUser = {
-  email : "cj@test.com",
-  first : "CJ",
-  last : "Powers"
-};
-
-var newProduct = ['Bouncy Ball', 1.99, 15];
+var newProduct = ['glasses', 'Jewelry', 'I did', 'Finished Product', '2010-2016', 199.99, 10, 'http://images.clipartpanda.com/cookie-with-glasses-home_glasses.png'];
+let newUser = ['cjpwrs', 'CJ', 'Powers', 'cjpwrs@gmail.com', '253-651-5971', 'password', '1234 Sunset Ave', '', 'Buena Vista', 'CA', '90310']
 
 // db.dropTable(function(err, res){
 //   console.log(res);
@@ -29,32 +24,24 @@ var newProduct = ['Bouncy Ball', 1.99, 15];
 //   console.log(res);
 // })
 
+// db.userTable(function(err, res) {
+//   console.log(res);
+// })
+
 // db.addProduct(newProduct, function(err, res){
 //   if(err) console.log(err);
 //   console.log(res);
 // })
 
-db.getProducts(function(err, res){
-  console.log(res);
-});
-
-
-
-
-
-
-// db.saveDoc("doggies", {
-//   "name": "red breasted merganser",
-//   "order": "Anseriformes",
-//   "status": "least concern",
-//   "confirmed": true,
-//   "numberSeen": 2
-// }, function(err,doc){
-//   //the new document, with id, is returned
+// db.getProducts(function(err, res){
+//   console.log(res);
 // });
-// console.log(db);
-//
-// db.run("select * from doggies", function(err, res){
+
+// db.addUser(newUser, function(err, res) {
+//   console.log(res)
+// });
+
+// db.getUsers(function(err, res) {
 //   console.log(res);
 // });
 
@@ -63,33 +50,59 @@ db.getProducts(function(err, res){
 
 app.post('/api/products', function(req, res) {
   //console.log(req);
-  console.log(req.body);
+  let product = req.body;
+  let props = [];
+  let vals = [];
+  for(var prop in product){
+    props.push(prop);
+    vals.push(product[prop])
+    // console.log(props);
+    // console.log(vals);
+  }
+  var propsStr = props.join(',');
+  let valsStr = props.join(',');
+  console.log('This is my string of properties', propsStr);
+  //console.log(req.body);
+
+
   let title = req.body.title;
   let price = req.body.price;
   let quantity = req.body.quantity;
   console.log('POST product');
-  db.addProduct(title, price, quantity, function(err, r){
-    if(!err){
-      return res.json(req.body);
+  db.products.save(req.body, function(err,updated){
+    if(err){
+      return res.json(err);
     }
-    else {
-      return res.json(err)
-    }
-  })
+    else return res.json(updated);
+  });
+  // db.addProduct(propsStr, valsStr, function(err, r){
+  //   if(!err){
+  //     return res.json(req.body);
+  //   }
+  //   else {
+  //     return res.json(err)
+  //   }
+  // })
 });
+
+app.post('/api/users', function(req, res) {
+  console.log(req.body);
+  db.addUser(newUser, function(err, response){
+    if(!err) return res.json(err);
+    else  return res.json(req.body)
+  })
+})
 
 app.get('/api/products', function(req, res) {
   db.getProducts(function(err, response){
     console.log(response);
     return res.json(response);
   });
-  // console.log('GET sighting');
-  // res.end();
 });
 
-db.deleteProduct(1, function(err, res){
-  console.log(res);
-})
+// db.deleteProduct(1, function(err, res){
+//   console.log(res);
+// })
 
 app.delete('/api/products', function(req, res) {
   console.log(req.body);
@@ -105,8 +118,11 @@ app.delete('/api/products', function(req, res) {
 app.put('/api/products', function(req, res) {
   let id = req.body.id;
   let title = req.body.title;
+
   let price = req.body.price;
   let quantity = req.body.quantity;
+  let product = req.body;
+  console.log([...product]);
   db.updateProduct(id, title, price, quantity, function(err, response){
     return res.end()
   })

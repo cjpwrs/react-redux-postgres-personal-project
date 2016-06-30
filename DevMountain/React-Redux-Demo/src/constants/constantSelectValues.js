@@ -63,3 +63,49 @@ export const categories = [
     text:'Weddings'
   }
 ]
+
+
+export const who_made_it = [
+  {
+    value: '0',
+    text:'I did'
+  },
+  {
+    value: '1',
+    text:'A member of my shop'
+  },
+  {
+    value: '2',
+    text:'Another company or person'
+  }
+]
+
+export const what_is_it = [
+  {
+    value: '0',
+    text:'A finished product'
+  },
+  {
+    value: '1',
+    text:'A supply or tool to make things'
+  }
+]
+
+export const when_was_it_made = [
+  {
+    value: '0',
+    text:'Made to order'
+  },
+  {
+    value: '1',
+    text:'2010-2016'
+  },
+  {
+    value: '2',
+    text:'2000s'
+  },
+  {
+    value: '3',
+    text:'1997-1999'
+  }
+]

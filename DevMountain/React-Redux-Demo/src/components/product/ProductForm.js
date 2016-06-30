@@ -5,11 +5,21 @@ import React from 'react';
 import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
 
-const ProductForm = ({ product, allUsers, className, productCategories, onSave, onDelete, onChange, loading, errors}) => {
+const ProductForm = ({ product, allUsers, className, productCategories, who_made_it, what_is_it, when_was_it_made, onSave, onDelete, onChange, loading, errors}) => {
   return (
     <divd>
       <form>
         <h3>Listing Details</h3>
+
+        <h4>Image URL<span className="asterisk">*</span></h4>
+        <TextInput
+          type="text"
+          name="image_url"
+          label="image"
+          value={product.image_url}
+          onChange={onChange}
+          error={errors.image_url}/>
+
         <h4>Title<span className="asterisk">*</span></h4>
           <TextInput
             type="text"
@@ -21,27 +31,27 @@ const ProductForm = ({ product, allUsers, className, productCategories, onSave, 
 
         <h4>About this listing<span className="asterisk">*</span></h4>
           <SelectInput
-            name="who-made-it"
-            value={product.category}
+            name="who_made_it"
+            value={product.who_made_it}
             defaultOption="Who made it?"
-            options={productCategories}
+            options={who_made_it}
             onChange={onChange} error={errors.category} />
           <SelectInput
-            name="what-is-it"
-            value={product.category}
+            name="what_is_it"
+            value={product.what_is_it}
             defaultOption="What is it?"
-            options={productCategories}
+            options={what_is_it}
             onChange={onChange} error={errors.category} />
           <SelectInput
-            name="when-was-it-made"
-            value={product.category}
+            name="when_was_it_made"
+            value={product.when_was_it_made}
             defaultOption="When was it made?"
-            options={productCategories}
+            options={when_was_it_made}
             onChange={onChange} error={errors.category} />
 
         <h4>Category<span className="asterisk">*</span></h4>
           <SelectInput
-            name="productCategory"
+            name="category"
             label="Category"
             value={product.category}
             defaultOption="Select Category"

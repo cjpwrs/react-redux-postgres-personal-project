@@ -22,7 +22,7 @@ class ProductPage extends React.Component {
   }
 
   onTitleChange(event) {
-    const product = this.state.product;
+    let product = this.state.product;
     product.title = event.target.value;
     this.setState({product: product});
   }
@@ -31,12 +31,11 @@ class ProductPage extends React.Component {
     this.props.actions.createProduct(this.state.product);
   }
 
-  deleteProduct(productId) {
+  deleteProduct(id) {
+    let productId = id;
     //event.preventDefault();
-    console.log(productId);
-    console.log(this.props);
     console.log(this.state);
-    //this.props.actions.deleteProduct(productId);
+    this.props.actions.deleteProduct(productId);
     //this.context.router.push('/products');
 
   }
@@ -58,13 +57,10 @@ class ProductPage extends React.Component {
         <h3>Stock your shop</h3>
         <p>Add as many listings as you can. Ten or more would be a great start.
          More listings means more changes to be discovered!</p>
-        <input type="submit"
-          value="Add Product"
-          className="btn btn-primary"
-          onClick={this.redirectToAddProductPage}/>
         <ProductList products={products}
                       onCreate={this.redirectToAddProductPage}
-                      onDelete={this.deleteProduct}/>
+                      onDelete={this.deleteProduct}
+        />
 
       </div>
     );

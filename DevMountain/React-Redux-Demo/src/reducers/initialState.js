@@ -3,5 +3,8 @@
  */
 export default {
   users: [],
-  products: []
+  products: [],
+  user: {},
+  userIsLoggedIn: false,
+  userIsShopOwner: false
 }
