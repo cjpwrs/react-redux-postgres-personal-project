@@ -50,29 +50,11 @@ let newUser = ['cjpwrs', 'CJ', 'Powers', 'cjpwrs@gmail.com', '253-651-5971', 'pa
 
 app.post('/api/products', function(req, res) {
   //console.log(req);
-  let product = req.body;
-  let props = [];
-  let vals = [];
-  for(var prop in product){
-    props.push(prop);
-    vals.push(product[prop])
-    // console.log(props);
-    // console.log(vals);
-  }
-  var propsStr = props.join(',');
-  let valsStr = props.join(',');
-  console.log('This is my string of properties', propsStr);
-  //console.log(req.body);
-
-
-  let title = req.body.title;
-  let price = req.body.price;
-  let quantity = req.body.quantity;
-  console.log('POST product');
+  console.log(req.body);
+  delete req.body.id;
+  console.log(req.body);
   db.products.save(req.body, function(err,updated){
-    if(err){
-      return res.json(err);
-    }
+    if(err) return res.json(err);
     else return res.json(updated);
   });
   // db.addProduct(propsStr, valsStr, function(err, r){
@@ -100,34 +82,21 @@ app.get('/api/products', function(req, res) {
   });
 });
 
-// db.deleteProduct(1, function(err, res){
-//   console.log(res);
-// })
 
 app.delete('/api/products', function(req, res) {
   console.log(req.body);
   let id = req.body.id;
   db.deleteProduct(id, function(err, response){
     console.log(response);
-    return res.end()
+    return res.end(JSON.stringify(req.body));
   })
-  console.log('DELETE product');
-  res.end();
 });
 
 app.put('/api/products', function(req, res) {
-  let id = req.body.id;
-  let title = req.body.title;
-
-  let price = req.body.price;
-  let quantity = req.body.quantity;
-  let product = req.body;
-  console.log([...product]);
-  db.updateProduct(id, title, price, quantity, function(err, response){
-    return res.end()
-  })
-  console.log('PUT product');
-  res.end();
+  db.products.save(req.body, function(err,updated){
+    if(err) return res.json(err);
+    else return res.json(updated);
+  });
 });
 
 app.listen(port, function() {

@@ -203,6 +203,15 @@ nav Link:hover {
 /* Shop owner admin functions */
 .manage-product-user-screen {
   background: #F5F5F1;
+  text-align: center;
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right: 5px;
+}
+
+.manage-product-user-screen h3 {
+
+  margin: 0px;
 }
 
 .product-holder-admin {

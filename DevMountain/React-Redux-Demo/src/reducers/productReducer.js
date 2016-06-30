@@ -21,12 +21,11 @@ export default function productReducer(state=initialState.products, action) {
             Object.assign({}, action.product)
           ];
     case types.DELETE_PRODUCT_SUCCESS:
-    { var test = [...state.filter(product => product.id !== action.product),
-      Object.assign({}, action.product)];
+    { var test = [...state.filter(product => product.id !== action.product.id)];
       console.log(test);
       console.log(action);
           return [
-            ...state.filter(product => product.id !== action.product)//,
+            ...state.filter(product => product.id !== action.product.id)//,
             //Object.assign({}, action.product)
           ];}
     default:
