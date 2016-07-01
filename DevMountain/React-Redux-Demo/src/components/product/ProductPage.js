@@ -51,6 +51,8 @@ class ProductPage extends React.Component {
   render() {
     //this is called destructuring
     const {products} = this.props;
+    console.log('Here are the props that we were passed in ', this.props);
+    console.log('here are the products that we receive from props ',products);
 
     return (
       <div className="manage-product-user-screen">
@@ -67,12 +69,14 @@ class ProductPage extends React.Component {
   }
 }
 ProductPage.propTypes = {
+  user: PropTypes.object.isRequired,
   products: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
 function mapStateToProps(state, ownProps){
   return{
-    products: state.products
+    products: state.products,
+    user: state.user
   };
 }
 

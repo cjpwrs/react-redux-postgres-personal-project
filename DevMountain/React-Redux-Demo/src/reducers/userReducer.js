@@ -5,10 +5,12 @@ import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 
 
-export default function userReducer(state=initialState.users, action) {
+export default function userReducer(state={user:initialState.user, isUserLoggedIn: initialState.userIsLoggedIn}, action) {
   switch (action.type) {
-    case types.LOAD_USERS_SUCCESS:
-      return action.users;
+    case types.LOGIN_USER_SUCCESS:
+      return {user: action.user, isUserLoggedIn: true};
+    case types.REGISTER_USER_SUCCESS:
+          return {state};
     default:
       return state;
   }

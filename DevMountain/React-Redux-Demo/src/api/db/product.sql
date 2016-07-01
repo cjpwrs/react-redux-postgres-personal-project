@@ -10,8 +10,6 @@ CREATE TABLE products
   price decimal,
   quantity decimal,
   image_url varchar(1000),
-  ownerId int references user(id)
+  ownerid int references users(id)
 
   );
-
- 

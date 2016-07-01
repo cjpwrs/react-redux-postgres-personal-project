@@ -12,11 +12,13 @@ import {loadProducts} from './actions/productActions';
 import {loadUsers} from './actions/userActions';
 import './styles/styles.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import initialState from './reducers/initialState';
 
 //this accepts an initial state as a param, which is useful for initializing store with data  from server
 const store = configureStore();
 store.dispatch(loadProducts());
-store.dispatch(loadUsers());
+//store.dispatch(loadUsers());
+console.log('This is what is in my store: ',store.getState());
 
 render(
   <Provider store={store}>

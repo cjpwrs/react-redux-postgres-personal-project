@@ -205,7 +205,7 @@ nav Link:hover {
   background: #F5F5F1;
   text-align: center;
   padding-top: 15px;
-  padding-left: 10px;
+  padding-left: 5px;
   padding-right: 5px;
 }
 
@@ -278,4 +278,8 @@ nav Link:hover {
 
 .pointer:hover{
   cursor: pointer;
+}
+
+.user-logged-in{
+  display: none;
 }

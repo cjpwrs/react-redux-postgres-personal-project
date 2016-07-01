@@ -5,9 +5,9 @@ import React from 'react';
 import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
 
-const ProductForm = ({ product, allUsers, className, productCategories, who_made_it, what_is_it, when_was_it_made, onSave, onDelete, onChange, loading, errors}) => {
+const ProductForm = ({ product, user, className, productCategories, who_made_it, what_is_it, when_was_it_made, onSave, onDelete, onChange, loading, errors}) => {
   return (
-    <divd>
+    <div>
       <form>
         <h3>Listing Details</h3>
 
@@ -90,7 +90,7 @@ const ProductForm = ({ product, allUsers, className, productCategories, who_made
             className="btn btn-primary"
             onClick={onDelete}/>
       </form>
-    </divd>
+    </div>
   );
 };
 

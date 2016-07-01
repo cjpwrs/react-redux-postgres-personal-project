@@ -35,6 +35,9 @@ class ManageProductPage extends React.Component {
 
   saveProduct(event) {
     event.preventDefault();
+    console.log(this.props)
+    this.state.product.ownerid = parseInt(this.props.user.user.id);
+    console.log(this.state.product);
     this.props.actions.saveProduct(this.state.product);
     this.context.router.push('/products');
   }
@@ -50,7 +53,7 @@ class ManageProductPage extends React.Component {
     render() {
         return (
             <ProductForm
-              allUsers={this.props.users}
+              user={this.props.user}
               productCategories={categories}
               who_made_it = {who_made_it}
               what_is_it = {what_is_it}
@@ -66,7 +69,7 @@ class ManageProductPage extends React.Component {
 
 ManageProductPage.propTypes = {
   product: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 };
 
@@ -83,22 +86,14 @@ function getProductById(products, id){
 
 function mapStateToProps(state, ownProps) {
   const productId = ownProps.params.id; //from the path '/product/:id
-  let product = {id: '', title: '', price: '', quantity: ''};
+  let product = {id: '', title: '', price: 0.00, quantity: 0};
 
   if (productId && state.products.length > 0) {
     product = getProductById(state.products, productId)
   }
-
-  const usersFormattedForDropdown = state.users.map(user => {
-    return {
-      value: user.id,
-      text: user.firstName + ' ' + user.lastName
-    };
-  });
-
     return {
         product: product,
-        users: usersFormattedForDropdown
+        user: state.user
     };
 }
 
