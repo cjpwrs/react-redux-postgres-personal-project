@@ -3,63 +3,63 @@
  */
 export const categories = [
   {
-    value: '0',
+    value: '1',
     text:'Accessories'
   },
   {
-    value: '1',
+    value: '2',
     text:'Arts & Collectibles'
   },
   {
-    value: '2',
+    value: '3',
     text:'Bags & Purses'
   },
   {
-    value: '3',
+    value: '4',
     text:'Bath & Beauty'
   },
   {
-    value: '4',
+    value: '5',
     text:'Books, Movies, & Music'
   },
   {
-    value: '5',
+    value: '6',
     text:'Clothing'
   },
   {
-    value: '6',
+    value: '7',
     text:'Craft Supplies & Tools'
   },
   {
-    value: '7',
+    value: '8',
     text:'Electronics and Accessories'
   },
   {
-    value: '8',
+    value: '9',
     text:'Home and Living'
   },
   {
-    value: '9',
+    value: '10',
     text:'Jewelry'
   },
   {
-    value: '10',
+    value: '11',
     text:'Paper & Party Supplies'
   },
   {
-    value: '11',
+    value: '12',
     text:'Pet Supplies'
   },
   {
-    value: '12',
+    value: '13',
     text:'Shoes'
   },
   {
-    value: '13',
+    value: '14',
     text:'Toys & Games'
   },
   {
-    value: '14',
+    value: '15',
     text:'Weddings'
   }
 ]

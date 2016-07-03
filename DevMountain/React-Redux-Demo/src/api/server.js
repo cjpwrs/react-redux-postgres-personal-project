@@ -25,9 +25,9 @@ let newUser = ['cjpwrs', 'CJ', 'Powers', 'cjpwrs@gmail.com', '253-651-5971', 'pa
 //   console.log(res);
 // });
 
-// db.productInitializers(function(err, res){
-//   console.log(res);
-// })
+db.productInitializers(function(err, res){
+  console.log(res);
+});
 
 // db.addProduct(newProduct, function(err, res){
 //   if(err) console.log(err);
@@ -50,12 +50,6 @@ let newUser = ['cjpwrs', 'CJ', 'Powers', 'cjpwrs@gmail.com', '253-651-5971', 'pa
 //   console.log(res);
 // });
 
-let product = {
-  title: 'Stuff',
-  price: 2.99,
-  quantity: 4,
-  ownerid: '1'
-}
 
 // db.products.save(product, function(err,updated){
 //   console.log(err);
@@ -76,6 +70,8 @@ app.post('/api/products', function(req, res) {
 
 app.post('/api/user/register', function(req, res) {
   console.log('The new user ',req.body);
+  //db is my connection to the database
+  //users is the name of my table in the database
   db.users.save(req.body, function(err, response){
     if(!err) return res.json(req.body);
     else  return res.json(err)
@@ -84,9 +80,9 @@ app.post('/api/user/register', function(req, res) {
 
 //user login
 app.post('/api/user/authenticate', function(req, res){
-  console.log('This is the info that we received: ',req.body);
+  //console.log('This is the info that we received: ',req.body);
   db.users.findOne({username:req.body.username}, function(err, user){
-    console.log('this is the user that we found', user);
+    //console.log('this is the user that we found', user);
     if(err) return res.end(JSON.stringify(err));
     else {
       if(user.password === req.body.password) {
@@ -98,9 +94,27 @@ app.post('/api/user/authenticate', function(req, res){
   })
 });
 
-app.get('/api/products', function(req, res) {
-  db.getProducts(function(err, response){
-    //console.log(response);
+app.get('/api/shopper/products', function(req, res) {
+  var category = req.query.category;
+  console.log(category);
+  if(req.query.category) {
+    db.products.find({"category": category}, function (err, response) {
+      //console.log(response);
+      return res.json(response);
+    })
+  }else {
+    db.products.find({}, function (err, response) {
+      //console.log(response);
+      return res.json(response);
+    })
+  }
+});
+
+
+
+app.get('/api/products/:id', function(req, res) {
+  db.queryProducts(req.params.id, function(err, response){
+    console.log(response);
     return res.json(response);
   });
 });
@@ -110,7 +124,7 @@ app.get('/api/users', function(req, res){
     //console.log(response);
     return res.json(response);
   })
-})
+});
 
 app.delete('/api/products', function(req, res) {
   console.log(req.body);
@@ -129,5 +143,5 @@ app.put('/api/products', function(req, res) {
 });
 
 app.listen(port, function() {
-  console.log("Started server on port", port);
+  console.log("Started server on port ", port);
 });

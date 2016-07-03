@@ -22,10 +22,10 @@ export function deleteProductSuccess(product) {
 let myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
 
-export function loadProducts() {
+export function loadProducts(userId) {
   return function(dispatch) {
     console.log('entered load dispatch');
-      fetch(`http://localhost:3001/api/products`,{method: 'get'})
+      fetch(`http://localhost:3001/api/products/` + userId, {method: 'get'})
         .then(response => {
           return response.json()})
             .then(data => dispatch(loadProductsSuccess(data)));

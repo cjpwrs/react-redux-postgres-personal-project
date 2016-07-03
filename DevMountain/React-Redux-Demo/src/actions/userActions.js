@@ -4,6 +4,10 @@
 import * as types from './actionTypes';
 import userApi from '../api/mockUserApi';
 
+export function loadProductsSuccess(products){
+  return { type: types.LOAD_PRODUCTS_SUCCESS, products }
+}
+
 export function loadUsersSuccess(users){
   return { type: types.LOAD_USERS_SUCCESS, users }
 }
@@ -28,6 +32,17 @@ export function loadUsers() {
   }
 }
 
+export function loadProducts(userId) {
+  return function(dispatch) {
+    console.log('entered load dispatch');
+    fetch(`http://localhost:3001/api/products/` + userId, {method: 'get'})
+      .then(response => {
+        console.log('This is my response when loading products', response);
+        return response.json()})
+      .then(data => dispatch(loadProductsSuccess(data)));
+  }
+}
+
 export function loginUser(user) {
   return function(dispatch, getState) {
     fetch('http://localhost:3001/api/user/authenticate',
@@ -45,6 +60,7 @@ export function loginUser(user) {
         console.log(user);
         dispatch(loginUserSuccess(user));
       })
+
   }
 }
 

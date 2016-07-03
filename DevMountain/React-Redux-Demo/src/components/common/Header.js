@@ -19,8 +19,7 @@ const Header = (userLoggedIn, user) => {
   if(userLoggedIn.userLoggedIn){
     headerOptions = (
       <div className="header-icon-holder">
-        <h3>Welcome {user.user.username}</h3>
-        <a className="first-icon" href=""><span className="glyphicon glyphicon-home"></span></a>
+        <Link className="first-icon" to="/"><span className="glyphicon glyphicon-home"></span></Link>
         <a className="nav-icon" href=""><span className="glyphicon glyphicon-heart"></span></a>
         <Link className="nav-icon" to="products"><img className="nav-img" src="https://www.etsy.com/images/avatars/default_shop_icon_75x75.png" alt=""/></Link>
         <a className="nav-icon" href=""><img className="nav-img circle" src="https://www.etsy.com/images/avatars/default_avatar_75x75.png" alt=""/></a>

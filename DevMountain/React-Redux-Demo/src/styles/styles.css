@@ -49,6 +49,14 @@ p, h1, h2, h3, h4, h5, li, div, button, a, Link {
   font-family: 'Lato', sans-serif;
 }
 
+.blue {
+  background: #F0FBFD;
+  color: #83CBDC;
+}
+
+.green {
+  color: #85C654;
+}
 
 #app {
   font-size: 14px;
@@ -263,10 +271,7 @@ nav Link:hover {
   height: 100%;
 }
 
-.blue {
-  background: #F0FBFD;
-  color: #83CBDC;
-}
+
 
 .create-product {
 
@@ -282,4 +287,72 @@ nav Link:hover {
 
 .user-logged-in{
   display: none;
+}
+
+/* Shopper Product Styles */
+
+.product-holder-shopping {
+  margin: auto;
+  width: 95%;
+  background: #FFF;
+  padding: 10px;
+  border: solid lightgrey .2px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.product-box-shopping {
+  height: 250px;
+  width: 250px;
+  border: solid lightgrey .2px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.product-img-holder-shopping {
+  height: 75%;
+  width: 98%;
+  margin: auto;
+}
+
+.product-img-holder-shopping img {
+  width: 100%;
+}
+
+.product-info-holder-shopping {
+  height: 45%;
+}
+
+
+/*  Product details page styles  */
+.details-page-favorite-box {
+  background: #E5F4F7;
+  height: 71px;
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.details-page-favorite-button{
+  width: 100px;
+  height: 25px;
+}
+
+.details-page-img-holder {
+  margin:auto;
+  width: 95%;
+}
+
+.details-page-img-holder img {
+  width: 100%;
+}
+
+.details-page-product-info {
+
 }

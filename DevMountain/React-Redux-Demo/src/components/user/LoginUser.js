@@ -7,6 +7,7 @@ import LoginUserForm from './LoginUserForm';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
+import * as adminProductActions from '../../actions/adminProductActions'
 
 class LoginUser extends React.Component {
   constructor(props, context) {
@@ -32,6 +33,7 @@ class LoginUser extends React.Component {
     event.preventDefault();
     console.log(this.state.user);
     this.props.actions.loginUser(this.state.user);
+    this.props.actions.loadProducts(this.state.user.username);
     this.context.router.push('/');
   }
 

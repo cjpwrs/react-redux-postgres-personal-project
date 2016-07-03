@@ -4,7 +4,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as productActions from '../../actions/productActions';
+import * as productActions from '../../actions/adminProductActions';
 import ProductList from './ProductList';
 import {browserHistory} from 'react-router';
 
@@ -19,6 +19,10 @@ class ProductPage extends React.Component {
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
+  }
+  
+  loadProducts(userId){
+    this.props.actions.loadProducts(userId);
   }
 
   onTitleChange(event) {

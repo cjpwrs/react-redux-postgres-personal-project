@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as productActions from '../../actions/productActions';
+import * as productActions from '../../actions/adminProductActions';
 import ProductForm from './ProductForm';
 import { categories, what_is_it, when_was_it_made, who_made_it } from '../../constants/constantSelectValues';
 

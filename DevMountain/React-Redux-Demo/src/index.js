@@ -8,7 +8,7 @@ import configureStore from './store/configureStore';
 import {Provider} from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
-import {loadProducts} from './actions/productActions';
+import {loadShopperProducts} from './actions/shopperProductActions';
 import {loadUsers} from './actions/userActions';
 import './styles/styles.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -16,7 +16,9 @@ import initialState from './reducers/initialState';
 
 //this accepts an initial state as a param, which is useful for initializing store with data  from server
 const store = configureStore();
-store.dispatch(loadProducts());
+console.log('********');
+store.dispatch(loadShopperProducts());
+console.log('*********');
 //store.dispatch(loadUsers());
 console.log('This is what is in my store: ',store.getState());
 
