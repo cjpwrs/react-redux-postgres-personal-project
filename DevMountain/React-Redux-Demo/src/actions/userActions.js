@@ -19,6 +19,10 @@ export function registerUserSuccess(user){
   return { type: types.REGISTER_USER_SUCCESS, user }
 }
 
+export function loadShoppingCartSuccess(cart){
+  return { type: types.LOAD_SHOPPING_CART_SUCCESS, cart}
+}
+
 let myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
 
@@ -59,6 +63,18 @@ export function loginUser(user) {
       .then(user => {
         console.log(user);
         dispatch(loginUserSuccess(user));
+        fetch('http://localhost:3001/api/cart/' + user.id,
+          {
+            method: 'get'
+          })
+          .then(response => {
+            console.log(response)
+            return response.json();
+          })
+          .then(cart => {
+            console.log(cart);
+            dispatch(loadShoppingCartSuccess(cart));
+          })
       })
 
   }

@@ -5,6 +5,7 @@ export default {
   shopperProducts: [],
   products: [],
   user: {},
+  cart: {},
   userIsLoggedIn: false,
   userIsShopOwner: false
 }

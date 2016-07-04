@@ -16,9 +16,7 @@ import initialState from './reducers/initialState';
 
 //this accepts an initial state as a param, which is useful for initializing store with data  from server
 const store = configureStore();
-console.log('********');
 store.dispatch(loadShopperProducts());
-console.log('*********');
 //store.dispatch(loadUsers());
 console.log('This is what is in my store: ',store.getState());
 

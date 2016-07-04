@@ -4,7 +4,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as productActions from '../../actions/adminProductActions';
+import * as shoppingCartActions from '../../actions/shoppingCartActions';
 import ProductDetails from './ProductDetails';
 
 class ProductDetailsPage extends React.Component {
@@ -13,9 +13,11 @@ class ProductDetailsPage extends React.Component {
 
     this.state = {
       product: Object.assign({}, this.props.product),
+      user: this.props.user,
+      cart: {},
       errors: {}
     };
-    this.saveProduct = this.saveProduct.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -26,25 +28,28 @@ class ProductDetailsPage extends React.Component {
   }
 
 
-  saveProduct(event) {
+  addToCart(event) {
     event.preventDefault();
     console.log(this.props);
-    this.state.product.ownerid = parseInt(this.props.user.user.id);
-    console.log(this.state.product);
-    this.props.actions.saveProduct(this.state.product);
-    this.context.router.push('/products');
+    let userid = this.state.user.user.id;
+    let productid = this.state.product.id;
+    let cartid = this.props.cart[0].cartid;
+    console.log(userid, productid, cartid);
+    this.props.actions.updateCart(userid, productid, cartid, 1);
+    //this.context.router.push('/products');
   }
 
 
   render() {
-    console.log('This is my product details page state',this.props);
+    console.log('This is my product details page props',this.props);
     console.log(this.state);
     return (
       <ProductDetails
         user={this.props.user}
         onSave={this.saveProduct}
         product={this.state.product}
-        errors={this.state.errors}/>
+        errors={this.state.errors}
+        onAddToCart={this.addToCart}/>
     );
   }
 }
@@ -52,7 +57,8 @@ class ProductDetailsPage extends React.Component {
 ProductDetailsPage.propTypes = {
   product: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired
 };
 
 //this makes react-router available on this component
@@ -78,13 +84,14 @@ function mapStateToProps(state, ownProps) {
   return {
     products: state.shopperProducts,
     product: product,
-    user: state.user
+    user: state.user,
+    cart: state.cart
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(productActions, dispatch)
+    actions: bindActionCreators(shoppingCartActions, dispatch)
   };
 }
 

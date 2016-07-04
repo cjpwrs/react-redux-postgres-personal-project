@@ -5,7 +5,7 @@ import React from 'react';
 import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
 
-const ProductDetails = ({ product, user, className, productCategories, who_made_it, what_is_it, when_was_it_made, onSave, onDelete, onChange, loading, errors}) => {
+const ProductDetails = ({ product, user, className, onAddToCart, onDelete, onChange, loading, errors}) => {
   return (
     <div>
       <div className="details-page-favorite-box">
@@ -24,6 +24,7 @@ const ProductDetails = ({ product, user, className, productCategories, who_made_
         <h3>Quantity</h3>
         <h3>{product.quantity}</h3>
       </div>
+      <button onClick={onAddToCart}>Add to Cart</button>
     </div>
   );
 };
@@ -34,7 +35,8 @@ ProductDetails.propTypes = {
   onSave: React.PropTypes.func.isRequired,
   onChange: React.PropTypes.func.isRequired,
   loading: React.PropTypes.bool,
-  errors: React.PropTypes.object
+  errors: React.PropTypes.object,
+  onAddToCart: React.PropTypes.func
 };
 
 export default ProductDetails;

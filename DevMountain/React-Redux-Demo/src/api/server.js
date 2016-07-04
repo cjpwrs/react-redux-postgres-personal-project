@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var massive = require('massive');
 var db = massive.connectSync({db : "testdb"});
-//console.log(db);
+//console.log(db.tables);
 var app = express();
 
 app.use(bodyParser.json());
@@ -16,7 +16,11 @@ var port = 3001;
 
 var newProduct = ['glasses', 'Jewelry', 'I did', 'Finished Product', '2010-2016', 199.99, 10, 'http://images.clipartpanda.com/cookie-with-glasses-home_glasses.png', 1];
 let newUser = ['cjpwrs', 'CJ', 'Powers', 'cjpwrs@gmail.com', '253-651-5971', 'password', '1234 Sunset Ave', '', 'Buena Vista', 'CA', '90310']
-
+let shoppingcartitem = {
+  "cartid": 1,
+  "productid": 23,
+  "quantity": 5
+}
 // db.dropTable(function(err, res){
 //   console.log(res);
 // })
@@ -25,9 +29,9 @@ let newUser = ['cjpwrs', 'CJ', 'Powers', 'cjpwrs@gmail.com', '253-651-5971', 'pa
 //   console.log(res);
 // });
 
-db.productInitializers(function(err, res){
-  console.log(res);
-});
+// db.productInitializers(function(err, res){
+//   console.log(res);
+// });
 
 // db.addProduct(newProduct, function(err, res){
 //   if(err) console.log(err);
@@ -50,11 +54,18 @@ db.productInitializers(function(err, res){
 //   console.log(res);
 // });
 
-
-// db.products.save(product, function(err,updated){
+//
+// db.products.save(newProduct, function(err,updated){
 //   console.log(err);
 //   console.log(updated);
 // });
+
+// db.cartitems.save(shoppingcartitem, function(err, response){
+//   console.log(err);
+//   console.log(response);
+//   if(err) return console.log(err);
+//   // else return console.log(shoppingcartitem);
+// })
 
 
 
@@ -76,7 +87,38 @@ app.post('/api/user/register', function(req, res) {
     if(!err) return res.json(req.body);
     else  return res.json(err)
   })
+});
+
+app.post('/api/cartcreate', function(req, res){
+  console.log(req.body);
+    db.shoppingcart.save({ownerid: req.body.userid}, function(err, response){
+      if(err) console.log(err);
+      else {
+        db.shoppingcart.findOne({ownerid: req.body.userid}, function(err, cart){
+          console.log(cart);
+          req.body.cartid = cart.id;
+          console.log(req.body);
+          res.json(req.body);
+        });
+      }
+    })
 })
+
+app.post('/api/cart', function(req, res) {
+console.log(req.body);
+  db.cartitems.save({cartid: req.body.cartid, productid:req.body.productid, quantity:req.body.quantity}, function(err, response){
+    if(err) {
+      console.log(err);
+      return res.json(err);
+    }
+    else{
+      db.shoppingcartquery(req.body.userid, function(err, response){
+        console.log(response);
+        return res.json(response);
+      })
+    }
+  })
+});
 
 //user login
 app.post('/api/user/authenticate', function(req, res){
@@ -122,6 +164,13 @@ app.get('/api/products/:id', function(req, res) {
 app.get('/api/users', function(req, res){
   db.getUsers(function(err, response){
     //console.log(response);
+    return res.json(response);
+  })
+});
+
+app.get('/api/cart/:id', function(req, res){
+  db.shoppingcartquery(req.params.id, function(err, response){
+    console.log(response);
     return res.json(response);
   })
 });
