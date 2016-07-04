@@ -23,7 +23,7 @@ const Header = (userLoggedIn, user) => {
         <a className="nav-icon" href=""><span className="glyphicon glyphicon-heart"></span></a>
         <Link className="nav-icon" to="products"><img className="nav-img" src="https://www.etsy.com/images/avatars/default_shop_icon_75x75.png" alt=""/></Link>
         <a className="nav-icon" href=""><img className="nav-img circle" src="https://www.etsy.com/images/avatars/default_avatar_75x75.png" alt=""/></a>
-        <a className="nav-icon" href=""><span className="glyphicon glyphicon-shopping-cart"></span></a>
+        <Link className="nav-icon" to="cart"><span className="glyphicon glyphicon-shopping-cart"></span></Link>
       </div>
     )
   } else {
@@ -31,7 +31,7 @@ const Header = (userLoggedIn, user) => {
       <div className="header-icon-holder">
         <Link className="user-not-logged-in nav-icon first-icon" to="user/register"><button>Sell</button></Link>
         <Link className="user-not-logged-in nav-icon first-icon" to="user/signin"><button>Sign In</button></Link>
-        <a className="nav-icon" href=""><span className="glyphicon glyphicon-shopping-cart"></span></a>
+        <Link className="nav-icon" to="cart"><span className="glyphicon glyphicon-shopping-cart"></span></Link>
       </div>
     )
   }

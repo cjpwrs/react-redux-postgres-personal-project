@@ -65,66 +65,95 @@ export function loginUser(user) {
   }
 }
 
-export function updateCart(userid, productid, cart, quantity=0) {
+export function updateCart(userid, productid, cartid, quantity=1, cart) {
   console.log('entered update cart function');
   let cartitem = {
     userid: userid,
-    cartid: cart.id,
+    cartid: cartid,
     productid: productid,
     quantity: quantity
   };
-  return function(dispatch, getState) {
-    console.log('heres the cart item',cartitem);
-    if(!cartitem.cartid){
-      console.log('enteed the if statement');
-      fetch('http://localhost:3001/api/cartcreate',
-        {
-          method: 'post',
-          headers: myHeaders,
-          mode: 'cors',
-          body: JSON.stringify(cartitem)
-        })
-        .then(response => {
-          console.log(response);
-          return response.json()
-        })
-        .then(cart => {
-          console.log(cart);
-          cartitem = cart;
-          dispatch(createCartSuccess(cart));
-          fetch('http://localhost:3001/api/cart',
-            {
-              method: 'post',
-              headers: myHeaders,
-              mode: 'cors',
-              body: JSON.stringify(cartitem)
-            })
-            .then(response => {
-              console.log(response);
-              return response.json()
-            })
-            .then(cart => {
-              console.log(cart);
-              dispatch(updateCartSuccess(cart));
-            })
-        })
-    }
-    else{
+  let isUpdate = false;
+  for(let i = 0; i < cart.length; i++){
+    console.log('here is the productid passed in ',productid,' and here is the product id we are comparing to ',cart[i].productid )
+    if(cart[i].productid == productid){
+      return function (dispatch, getState) {
+        isUpdate = true;
+        console.log('entered the put for updating cart item');
+        cartitem.id = cart[i].id;
+        cartitem.quantity= cart[i].quantity + 1;
         fetch('http://localhost:3001/api/cart',
-        {
-          method: 'post',
-          headers: myHeaders,
-          mode: 'cors',
-          body: JSON.stringify(cartitem)
-        })
-        .then(response => {
-          console.log(response);
-          return response.json()
-        })
-        .then(cart => {
-          console.log(cart);
-          dispatch(updateCartSuccess(cart));
-        })
+          {
+            method: 'put',
+            headers: myHeaders,
+            mode: 'cors',
+            body: JSON.stringify(cartitem)
+          })
+          .then(response => {
+            console.log(response);
+            return response.json()
+          })
+          .then(cart => {
+            console.log(cart);
+            dispatch(updateCartSuccess(cart));
+          })
+      }
+    }
+  }
+  if(isUpdate===false) {
+    return function (dispatch, getState) {
+      console.log('heres the cart item', cartitem);
+      if (!cartitem.cartid) {
+        console.log('entered the if statement');
+        fetch('http://localhost:3001/api/cartcreate',
+          {
+            method: 'post',
+            headers: myHeaders,
+            mode: 'cors',
+            body: JSON.stringify(cartitem)
+          })
+          .then(response => {
+            console.log(response);
+            return response.json()
+          })
+          .then(cart => {
+            console.log(cart);
+            cartitem = cart;
+            dispatch(createCartSuccess(cart));
+            fetch('http://localhost:3001/api/cart',
+              {
+                method: 'post',
+                headers: myHeaders,
+                mode: 'cors',
+                body: JSON.stringify(cartitem)
+              })
+              .then(response => {
+                console.log(response);
+                return response.json()
+              })
+              .then(cart => {
+                console.log(cart);
+                dispatch(updateCartSuccess(cart));
+              })
+          })
+      }
+      else {
+        fetch('http://localhost:3001/api/cart',
+          {
+            method: 'post',
+            headers: myHeaders,
+            mode: 'cors',
+            body: JSON.stringify(cartitem)
+          })
+          .then(response => {
+            console.log(response);
+            return response.json()
+          })
+          .then(cart => {
+            console.log(cart);
+            dispatch(updateCartSuccess(cart));
+          })
+      }
     }
   }
 }

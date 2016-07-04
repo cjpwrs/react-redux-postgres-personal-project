@@ -12,6 +12,7 @@ import LoginUser from './components/user/LoginUser';
 import RegisterUser from './components/user/RegisterUser';
 import ShoppingPage from './components/shopperProduct/ProductPage';
 import ProductDetails from './components/shopperProduct/ProductDetailsPage';
+import ShoppingCart from './components/shoppingCart/ShoppingCartDetails';
 
 export default (
   <Route path="/" component={App}>
@@ -24,5 +25,6 @@ export default (
     <Route path="user/register" component={RegisterUser} />
     <Route path="shop" component={ShoppingPage} />
     <Route path="shop/:id" component={ProductDetails} />
+    <Route path="cart" component={ShoppingCart} />
   </Route>
 );

@@ -118,7 +118,23 @@ console.log(req.body);
       })
     }
   })
-});
+})
+
+app.put('/api/cart', function(req, res) {
+  console.log(req.body);
+  db.cartitems.save({id: req.body.id, cartid: req.body.cartid, productid:req.body.productid, quantity:req.body.quantity}, function(err, response){
+    if(err) {
+      console.log(err);
+      return res.json(err);
+    }
+    else{
+      db.shoppingcartquery(req.body.userid, function(err, response){
+        console.log(response);
+        return res.json(response);
+      })
+    }
+  })
+})
 
 //user login
 app.post('/api/user/authenticate', function(req, res){

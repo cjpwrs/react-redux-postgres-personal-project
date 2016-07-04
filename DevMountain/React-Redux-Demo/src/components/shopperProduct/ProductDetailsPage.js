@@ -35,7 +35,7 @@ class ProductDetailsPage extends React.Component {
     let productid = this.state.product.id;
     let cartid = this.props.cart[0].cartid;
     console.log(userid, productid, cartid);
-    this.props.actions.updateCart(userid, productid, cartid, 1);
+    this.props.actions.updateCart(userid, productid, cartid, 1, this.props.cart);
     //this.context.router.push('/products');
   }
 

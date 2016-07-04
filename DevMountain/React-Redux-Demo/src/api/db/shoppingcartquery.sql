@@ -1,5 +1,6 @@
 select
-cartid
+a.id
+, cartid
 , productid
 , a.quantity
 , b.ownerid as userid
